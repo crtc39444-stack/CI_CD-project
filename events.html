@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventHub | Explore Events</title>
+
+    <style>
+
+        /* =====================================================
+           EVENTHUB EVENTS PAGE
+           Everything is contained inside this file.
+           ===================================================== */
+
+
+        /* ---------- RESET ---------- */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* ---------- CONTAINER ---------- */
+
+        .eh-events-container {
+            width: 90%;
+            max-width: 1180px;
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .eh-events-navbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .eh-events-nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .eh-events-logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .eh-events-logo span {
+            color: #635bff;
+        }
+
+        .eh-events-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .eh-events-nav-links a {
+            font-size: 14px;
+            color: #555;
+            transition: 0.2s;
+        }
+
+        .eh-events-nav-links a:hover {
+            color: #635bff;
+        }
+
+        .eh-events-nav-links .eh-events-active {
+            color: #635bff;
+            font-weight: 600;
+        }
+
+        .eh-events-start-btn {
+            background: #635bff;
+            color: #ffffff !important;
+
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+           ===================================================== */
+
+        .eh-events-page-header {
+            background: #f0efff;
+            text-align: center;
+
+            padding: 70px 20px;
+        }
+
+        .eh-events-page-header small {
+            color: #635bff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .eh-events-page-header h1 {
+            font-size: 46px;
+            margin: 10px 0;
+        }
+
+        .eh-events-page-header p {
+            color: #667085;
+            max-width: 600px;
+            margin: auto;
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           MAIN EVENTS AREA
+           ===================================================== */
+
+        .eh-events-main {
+            padding: 55px 0 90px;
+        }
+
+
+        /* ---------- SEARCH AREA ---------- */
+
+        .eh-events-controls {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            display: grid;
+            grid-template-columns: 1fr 210px 210px;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .eh-events-search {
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+
+            border: 1px solid #dcdfe5;
+            border-radius: 8px;
+
+            padding: 0 14px;
+
+            gap: 10px;
+        }
+
+        .eh-events-search input {
+            border: none;
+            outline: none;
+
+            width: 100%;
+
+            font-size: 14px;
+        }
+
+        .eh-events-filter {
+            height: 48px;
+
+            border: 1px solid #dcdfe5;
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            padding: 0 12px;
+
+            outline: none;
+
+            color: #444;
+
+            cursor: pointer;
+        }
+
+
+        /* ---------- RESULT COUNT ---------- */
+
+        .eh-events-result-info {
+            margin-bottom: 25px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        .eh-events-result-info strong {
+            color: #172033;
+        }
+
+
+        /* =====================================================
+           EVENT GRID
+           ===================================================== */
+
+        .eh-events-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =====================================================
+           EVENT CARD
+           ===================================================== */
+
+        .eh-event-card {
+            background: #ffffff;
+
+            border: 1px solid #e7e7e7;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            transition: 0.25s;
+        }
+
+        .eh-event-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* ---------- EVENT VISUAL ---------- */
+
+        .eh-event-visual {
+            height: 185px;
+
+            padding: 16px;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+        }
+
+        .eh-event-music {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff8a65,
+                    #ff5252
+                );
+        }
+
+        .eh-event-tech {
+            background:
+                linear-gradient(
+                    135deg,
+                    #42a5f5,
+                    #5c6bc0
+                );
+        }
+
+        .eh-event-sports {
+            background:
+                linear-gradient(
+                    135deg,
+                    #66bb6a,
+                    #26a69a
+                );
+        }
+
+        .eh-event-arts {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ab47bc,
+                    #7e57c2
+                );
+        }
+
+        .eh-event-business {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffa726,
+                    #ef6c00
+                );
+        }
+
+        .eh-event-tag,
+        .eh-event-date {
+            background: rgba(255, 255, 255, 0.92);
+
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+
+        /* ---------- CARD CONTENT ---------- */
+
+        .eh-event-content {
+            padding: 22px;
+        }
+
+        .eh-event-content h2 {
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+        .eh-event-description {
+            color: #777;
+
+            font-size: 14px;
+
+            min-height: 45px;
+
+            margin-bottom: 18px;
+        }
+
+        .eh-event-meta {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding-bottom: 18px;
+
+            border-bottom: 1px solid #eeeeee;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+        .eh-event-details-btn {
+            display: block;
+
+            margin-top: 18px;
+
+            color: #635bff;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .eh-event-details-btn:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           NO RESULTS
+           ===================================================== */
+
+        .eh-events-no-results {
+            display: none;
+
+            text-align: center;
+
+            padding: 80px 20px;
+        }
+
+        .eh-events-no-results-icon {
+            font-size: 45px;
+
+            margin-bottom: 12px;
+        }
+
+        .eh-events-no-results h2 {
+            margin-bottom: 7px;
+        }
+
+        .eh-events-no-results p {
+            color: #777;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .eh-events-footer {
+            background: #111827;
+
+            color: #ffffff;
+
+            padding: 45px 0 20px;
+        }
+
+        .eh-events-footer-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 30px;
+
+            padding-bottom: 35px;
+        }
+
+        .eh-events-footer-logo {
+            font-size: 24px;
+
+            font-weight: 800;
+        }
+
+        .eh-events-footer-logo span {
+            color: #8b85ff;
+        }
+
+        .eh-events-footer p {
+            color: #9ca3af;
+
+            margin-top: 7px;
+
+            font-size: 14px;
+        }
+
+        .eh-events-footer-links {
+            display: flex;
+
+            gap: 22px;
+        }
+
+        .eh-events-footer-links a {
+            color: #d1d5db;
+
+            font-size: 14px;
+        }
+
+        .eh-events-footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .eh-events-copyright {
+            border-top: 1px solid #293244;
+
+            padding-top: 18px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .eh-events-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .eh-events-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .eh-events-page-header h1 {
+                font-size: 38px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .eh-events-nav-links a:not(.eh-events-start-btn) {
+                display: none;
+            }
+
+            .eh-events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .eh-events-footer-top {
+                flex-direction: column;
+            }
+
+            .eh-events-footer-links {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="eh-events-navbar">
+
+        <div
+            class="eh-events-container eh-events-nav-inner"
+        >
+
+            <a
+                href="index.html"
+                class="eh-events-logo"
+            >
+                Event<span>Hub</span>
+            </a>
+
+
+            <nav class="eh-events-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a
+                    href="events.html"
+                    class="eh-events-active"
+                >
+                    Events
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <a
+                    href="register.html"
+                    class="eh-events-start-btn"
+                >
+                    Get Started
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <section class="eh-events-page-header">
+
+        <div class="eh-events-container">
+
+            <small>
+                DISCOVER
+            </small>
+
+            <h1>
+                Explore Events
+            </h1>
+
+            <p>
+                Find exciting events, workshops and
+                experiences happening around you.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EVENTS
+         ===================================================== -->
+
+    <main class="eh-events-main">
+
+        <div class="eh-events-container">
+
+
+            <!-- SEARCH + FILTER -->
+
+            <div class="eh-events-controls">
+
+
+                <div class="eh-events-search">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="ehEventSearch"
+                        placeholder="Search events..."
+                    >
+
+                </div>
+
+
+                <select
+                    id="ehEventCategory"
+                    class="eh-events-filter"
+                >
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="music">
+                        Music
+                    </option>
+
+                    <option value="technology">
+                        Technology
+                    </option>
+
+                    <option value="sports">
+                        Sports
+                    </option>
+
+                    <option value="arts">
+                        Arts
+                    </option>
+
+                    <option value="business">
+                        Business
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="ehEventLocation"
+                    class="eh-events-filter"
+                >
+
+                    <option value="all">
+                        All Locations
+                    </option>
+
+                    <option value="bhubaneswar">
+                        Bhubaneswar
+                    </option>
+
+                    <option value="cuttack">
+                        Cuttack
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- RESULT COUNT -->
+
+            <div class="eh-events-result-info">
+
+                Showing
+
+                <strong id="ehEventCount">
+                    6
+                </strong>
+
+                events
+
+            </div>
+
+
+
+            <!-- EVENT GRID -->
+
+            <div
+                class="eh-events-grid"
+                id="ehEventsGrid"
+            >
+
+
+                <!-- EVENT 1 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="music"
+                    data-location="bhubaneswar"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-music"
+                    >
+
+                        <span class="eh-event-tag">
+                            MUSIC
+                        </span>
+
+                        <span class="eh-event-date">
+                            SEP 28
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            Live Music Festival
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Experience live music from
+                            talented artists.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Bhubaneswar
+                            </span>
+
+                            <span>
+                                👥 250 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- EVENT 2 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="technology"
+                    data-location="cuttack"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-tech"
+                    >
+
+                        <span class="eh-event-tag">
+                            TECHNOLOGY
+                        </span>
+
+                        <span class="eh-event-date">
+                            OCT 05
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            Future of Technology
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Explore AI, Cloud and emerging
+                            technologies.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Cuttack
+                            </span>
+
+                            <span>
+                                👥 150 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- EVENT 3 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="sports"
+                    data-location="bhubaneswar"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-sports"
+                    >
+
+                        <span class="eh-event-tag">
+                            SPORTS
+                        </span>
+
+                        <span class="eh-event-date">
+                            OCT 12
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            Football Championship
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Watch exciting teams compete
+                            for the championship.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Bhubaneswar
+                            </span>
+
+                            <span>
+                                👥 500 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- EVENT 4 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="arts"
+                    data-location="cuttack"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-arts"
+                    >
+
+                        <span class="eh-event-tag">
+                            ARTS
+                        </span>
+
+                        <span class="eh-event-date">
+                            OCT 18
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            Creative Arts Exhibition
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Explore paintings, sculptures
+                            and creative artwork.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Cuttack
+                            </span>
+
+                            <span>
+                                👥 200 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- EVENT 5 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="business"
+                    data-location="bhubaneswar"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-business"
+                    >
+
+                        <span class="eh-event-tag">
+                            BUSINESS
+                        </span>
+
+                        <span class="eh-event-date">
+                            OCT 22
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            Startup Networking Meet
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Meet founders, entrepreneurs
+                            and industry professionals.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Bhubaneswar
+                            </span>
+
+                            <span>
+                                👥 120 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- EVENT 6 -->
+
+                <article
+                    class="eh-event-card"
+                    data-category="technology"
+                    data-location="bhubaneswar"
+                >
+
+                    <div
+                        class="eh-event-visual eh-event-tech"
+                    >
+
+                        <span class="eh-event-tag">
+                            TECHNOLOGY
+                        </span>
+
+                        <span class="eh-event-date">
+                            NOV 02
+                        </span>
+
+                    </div>
+
+
+                    <div class="eh-event-content">
+
+                        <h2>
+                            AWS Cloud Workshop
+                        </h2>
+
+                        <p class="eh-event-description">
+                            Learn cloud computing and
+                            AWS fundamentals.
+                        </p>
+
+
+                        <div class="eh-event-meta">
+
+                            <span>
+                                📍 Bhubaneswar
+                            </span>
+
+                            <span>
+                                👥 100 seats
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="event-details.html"
+                            class="eh-event-details-btn"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                id="ehNoEvents"
+                class="eh-events-no-results"
+            >
+
+                <div class="eh-events-no-results-icon">
+                    🔍
+                </div>
+
+                <h2>
+                    No events found
+                </h2>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="eh-events-footer">
+
+        <div class="eh-events-container">
+
+
+            <div class="eh-events-footer-top">
+
+
+                <div>
+
+                    <div class="eh-events-footer-logo">
+                        Event<span>Hub</span>
+                    </div>
+
+                    <p>
+                        Discover. Register. Experience.
+                    </p>
+
+                </div>
+
+
+                <div class="eh-events-footer-links">
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="events.html">
+                        Events
+                    </a>
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                    <a href="register.html">
+                        Register
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="eh-events-copyright">
+
+                © 2026 EventHub. All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /*
+        ========================================================
+        EVENTHUB EVENTS PAGE JAVASCRIPT
+
+        This JavaScript belongs ONLY to events.html.
+        ========================================================
+        */
+
+
+        const ehSearch =
+            document.getElementById("ehEventSearch");
+
+        const ehCategory =
+            document.getElementById("ehEventCategory");
+
+        const ehLocation =
+            document.getElementById("ehEventLocation");
+
+        const ehCards =
+            document.querySelectorAll(".eh-event-card");
+
+        const ehCount =
+            document.getElementById("ehEventCount");
+
+        const ehNoEvents =
+            document.getElementById("ehNoEvents");
+
+
+        function ehFilterEvents() {
+
+            const searchValue =
+                ehSearch.value
+                    .toLowerCase()
+                    .trim();
+
+            const categoryValue =
+                ehCategory.value;
+
+            const locationValue =
+                ehLocation.value;
+
+
+            let visibleCount = 0;
+
+
+            ehCards.forEach(function(card) {
+
+                const title =
+                    card.querySelector("h2")
+                        .textContent
+                        .toLowerCase();
+
+                const description =
+                    card.querySelector(".eh-event-description")
+                        .textContent
+                        .toLowerCase();
+
+                const cardCategory =
+                    card.dataset.category;
+
+                const cardLocation =
+                    card.dataset.location;
+
+
+                const searchMatch =
+                    title.includes(searchValue) ||
+                    description.includes(searchValue);
+
+
+                const categoryMatch =
+                    categoryValue === "all" ||
+                    cardCategory === categoryValue;
+
+
+                const locationMatch =
+                    locationValue === "all" ||
+                    cardLocation === locationValue;
+
+
+                if (
+                    searchMatch &&
+                    categoryMatch &&
+                    locationMatch
+                ) {
+
+                    card.style.display = "";
+
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            ehCount.textContent =
+                visibleCount;
+
+
+            if (visibleCount === 0) {
+
+                ehNoEvents.style.display =
+                    "block";
+
+            } else {
+
+                ehNoEvents.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /* SEARCH */
+
+        ehSearch.addEventListener(
+            "input",
+            ehFilterEvents
+        );
+
+
+        /* CATEGORY FILTER */
+
+        ehCategory.addEventListener(
+            "change",
+            ehFilterEvents
+        );
+
+
+        /* LOCATION FILTER */
+
+        ehLocation.addEventListener(
+            "change",
+            ehFilterEvents
+        );
+
+    </script>
+
+
+</body>
+
+</html>

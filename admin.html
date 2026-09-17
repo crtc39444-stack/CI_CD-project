@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | EventHub</title>
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .ehadmin-navbar {
+            height: 70px;
+            background: #111827;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .ehadmin-logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+
+        .ehadmin-logo span {
+            color: #818cf8;
+        }
+
+        .ehadmin-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ehadmin-label {
+            color: #d1d5db;
+            font-size: 14px;
+        }
+
+        .ehadmin-logout {
+            border: none;
+            background: #ef4444;
+            color: white;
+
+            padding: 9px 17px;
+            border-radius: 7px;
+
+            font-weight: 600;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .ehadmin-logout:hover {
+            background: #dc2626;
+        }
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .ehadmin-container {
+            width: 86%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .ehadmin-main {
+            padding: 40px 0 60px;
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .ehadmin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .ehadmin-header h1 {
+            font-size: 31px;
+            margin-bottom: 7px;
+        }
+
+        .ehadmin-header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .ehadmin-add-event {
+            border: none;
+            background: #4f46e5;
+            color: white;
+
+            padding: 12px 20px;
+            border-radius: 8px;
+
+            font-weight: 700;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .ehadmin-add-event:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        /* =========================================
+           STATISTICS
+        ========================================= */
+
+        .ehadmin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .ehadmin-stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+            padding: 23px;
+
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            transition: 0.3s;
+        }
+
+        .ehadmin-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .ehadmin-stat-icon {
+            width: 52px;
+            height: 52px;
+
+            border-radius: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+
+            background: #eef2ff;
+        }
+
+        .ehadmin-stat-card:nth-child(2)
+        .ehadmin-stat-icon {
+            background: #ecfdf5;
+        }
+
+        .ehadmin-stat-card:nth-child(3)
+        .ehadmin-stat-icon {
+            background: #fff7ed;
+        }
+
+        .ehadmin-stat-card:nth-child(4)
+        .ehadmin-stat-icon {
+            background: #fdf2f8;
+        }
+
+        .ehadmin-stat-info h2 {
+            font-size: 27px;
+            margin-bottom: 4px;
+        }
+
+        .ehadmin-stat-info p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           MAIN GRID
+        ========================================= */
+
+        .ehadmin-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .ehadmin-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .ehadmin-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+        .ehadmin-card-header h2 {
+            font-size: 20px;
+        }
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        .ehadmin-search-area {
+            display: flex;
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .ehadmin-search {
+            flex: 1;
+
+            padding: 11px 13px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+
+            outline: none;
+        }
+
+        .ehadmin-search:focus {
+            border-color: #4f46e5;
+        }
+
+        .ehadmin-filter {
+            padding: 11px 13px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+
+            background: white;
+            outline: none;
+        }
+
+        /* =========================================
+           EVENT TABLE
+        ========================================= */
+
+        .ehadmin-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .ehadmin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        .ehadmin-table th {
+            text-align: left;
+
+            background: #f9fafb;
+            color: #6b7280;
+
+            font-size: 12px;
+            text-transform: uppercase;
+
+            padding: 13px;
+        }
+
+        .ehadmin-table td {
+            padding: 15px 13px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            font-size: 14px;
+        }
+
+        .ehadmin-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ehadmin-event-name {
+            font-weight: 700;
+        }
+
+        .ehadmin-event-location {
+            color: #6b7280;
+            font-size: 12px;
+
+            margin-top: 4px;
+        }
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .ehadmin-status {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .ehadmin-status-active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .ehadmin-status-full {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* =========================================
+           ACTION BUTTONS
+        ========================================= */
+
+        .ehadmin-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .ehadmin-action-btn {
+            border: none;
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .ehadmin-edit {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .ehadmin-delete {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .ehadmin-action-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* =========================================
+           RECENT REGISTRATIONS
+        ========================================= */
+
+        .ehadmin-registration-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ehadmin-registration {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding-bottom: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .ehadmin-registration:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .ehadmin-user-avatar {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #4f46e5;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            flex-shrink: 0;
+        }
+
+        .ehadmin-user-info {
+            flex: 1;
+        }
+
+        .ehadmin-user-info h3 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .ehadmin-user-info p {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .ehadmin-registration-time {
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .ehadmin-quick-actions {
+            margin-top: 25px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .ehadmin-quick-action {
+            border: 1px solid #e5e7eb;
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            transition: 0.3s;
+        }
+
+        .ehadmin-quick-action:hover {
+            border-color: #c7d2fe;
+            transform: translateY(-2px);
+        }
+
+        .ehadmin-quick-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .ehadmin-quick-action h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .ehadmin-quick-action p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* =========================================
+           MODAL
+        ========================================= */
+
+        .ehadmin-modal-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(17, 24, 39, 0.65);
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 500;
+        }
+
+        .ehadmin-modal-overlay.active {
+            display: flex;
+        }
+
+        .ehadmin-modal {
+            width: 100%;
+            max-width: 560px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 28px;
+
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .ehadmin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .ehadmin-modal-header h2 {
+            font-size: 21px;
+        }
+
+        .ehadmin-close {
+            border: none;
+            background: transparent;
+
+            font-size: 25px;
+
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .ehadmin-form-group {
+            margin-bottom: 17px;
+        }
+
+        .ehadmin-form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .ehadmin-form-group input,
+        .ehadmin-form-group textarea,
+        .ehadmin-form-group select {
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            outline: none;
+        }
+
+        .ehadmin-form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .ehadmin-form-group input:focus,
+        .ehadmin-form-group textarea:focus,
+        .ehadmin-form-group select:focus {
+            border-color: #4f46e5;
+        }
+
+        .ehadmin-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .ehadmin-submit {
+            width: 100%;
+
+            border: none;
+
+            background: #4f46e5;
+            color: white;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .ehadmin-submit:hover {
+            background: #4338ca;
+        }
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .ehadmin-empty {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #6b7280;
+
+            display: none;
+        }
+
+        /* =========================================
+           DEMO NOTICE
+        ========================================= */
+
+        .ehadmin-demo {
+            margin-top: 25px;
+
+            background: #fffbeb;
+
+            border: 1px solid #fde68a;
+
+            color: #92400e;
+
+            padding: 15px 18px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .ehadmin-footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 25px;
+
+            font-size: 13px;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .ehadmin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ehadmin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .ehadmin-navbar {
+                padding: 0 5%;
+            }
+
+            .ehadmin-label {
+                display: none;
+            }
+
+            .ehadmin-container {
+                width: 90%;
+            }
+
+            .ehadmin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .ehadmin-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .ehadmin-search-area {
+                flex-direction: column;
+            }
+
+            .ehadmin-quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .ehadmin-form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav class="ehadmin-navbar">
+
+        <a href="index.html" class="ehadmin-logo">
+            Event<span>Hub</span>
+        </a>
+
+        <div class="ehadmin-nav-right">
+
+            <span class="ehadmin-label">
+                Administrator
+            </span>
+
+            <button
+                class="ehadmin-logout"
+                id="ehadminLogoutBtn">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="ehadmin-main">
+
+        <div class="ehadmin-container">
+
+
+            <!-- HEADER -->
+
+            <section class="ehadmin-header">
+
+                <div>
+
+                    <h1>
+                        Admin Dashboard
+                    </h1>
+
+                    <p>
+                        Manage events, users and registrations.
+                    </p>
+
+                </div>
+
+                <button
+                    class="ehadmin-add-event"
+                    id="ehadminAddEventBtn">
+
+                    + Create Event
+
+                </button>
+
+            </section>
+
+
+            <!-- =====================================
+                 STATISTICS
+            ====================================== -->
+
+            <section class="ehadmin-stats">
+
+
+                <div class="ehadmin-stat-card">
+
+                    <div class="ehadmin-stat-icon">
+                        📅
+                    </div>
+
+                    <div class="ehadmin-stat-info">
+
+                        <h2 id="ehadminTotalEvents">
+                            6
+                        </h2>
+
+                        <p>
+                            Total Events
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ehadmin-stat-card">
+
+                    <div class="ehadmin-stat-icon">
+                        👥
+                    </div>
+
+                    <div class="ehadmin-stat-info">
+
+                        <h2 id="ehadminTotalUsers">
+                            128
+                        </h2>
+
+                        <p>
+                            Total Users
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ehadmin-stat-card">
+
+                    <div class="ehadmin-stat-icon">
+                        🎟️
+                    </div>
+
+                    <div class="ehadmin-stat-info">
+
+                        <h2 id="ehadminTotalRegistrations">
+                            347
+                        </h2>
+
+                        <p>
+                            Registrations
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ehadmin-stat-card">
+
+                    <div class="ehadmin-stat-icon">
+                        🔔
+                    </div>
+
+                    <div class="ehadmin-stat-info">
+
+                        <h2>
+                            4
+                        </h2>
+
+                        <p>
+                            Active Events
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 CONTENT GRID
+            ====================================== -->
+
+            <section class="ehadmin-grid">
+
+
+                <!-- EVENTS MANAGEMENT -->
+
+                <div class="ehadmin-card">
+
+                    <div class="ehadmin-card-header">
+
+                        <h2>
+                            Event Management
+                        </h2>
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+
+                    <div class="ehadmin-search-area">
+
+                        <input
+                            type="text"
+                            id="ehadminSearchInput"
+                            class="ehadmin-search"
+                            placeholder="Search events...">
+
+
+                        <select
+                            id="ehadminCategoryFilter"
+                            class="ehadmin-filter">
+
+                            <option value="all">
+                                All Categories
+                            </option>
+
+                            <option value="technology">
+                                Technology
+                            </option>
+
+                            <option value="music">
+                                Music
+                            </option>
+
+                            <option value="sports">
+                                Sports
+                            </option>
+
+                            <option value="arts">
+                                Arts
+                            </option>
+
+                            <option value="business">
+                                Business
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TABLE -->
+
+                    <div class="ehadmin-table-wrapper">
+
+                        <table class="ehadmin-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Event
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Registrations
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="ehadminEventTableBody">
+
+
+                                <tr
+                                    data-category="music"
+                                    data-title="Live Music Festival">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            Live Music Festival
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Bhubaneswar
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Sep 28, 2026
+                                    </td>
+
+                                    <td>
+                                        187 / 250
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehdash-status-active ehadmin-status-active">
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="Live Music Festival">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="Live Music Festival">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr
+                                    data-category="technology"
+                                    data-title="Future of Technology">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            Future of Technology
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Bhubaneswar
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Oct 05, 2026
+                                    </td>
+
+                                    <td>
+                                        82 / 100
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehadmin-status-active">
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="Future of Technology">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="Future of Technology">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr
+                                    data-category="sports"
+                                    data-title="Football Championship">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            Football Championship
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Bhubaneswar
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Oct 12, 2026
+                                    </td>
+
+                                    <td>
+                                        500 / 500
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehadmin-status-full">
+                                            Full
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="Football Championship">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="Football Championship">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr
+                                    data-category="arts"
+                                    data-title="Creative Arts Exhibition">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            Creative Arts Exhibition
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Cuttack
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Oct 18, 2026
+                                    </td>
+
+                                    <td>
+                                        74 / 200
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehadmin-status-active">
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="Creative Arts Exhibition">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="Creative Arts Exhibition">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr
+                                    data-category="business"
+                                    data-title="Startup Networking Meet">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            Startup Networking Meet
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Bhubaneswar
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Oct 22, 2026
+                                    </td>
+
+                                    <td>
+                                        61 / 120
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehadmin-status-active">
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="Startup Networking Meet">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="Startup Networking Meet">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr
+                                    data-category="technology"
+                                    data-title="AWS Cloud Workshop">
+
+                                    <td>
+
+                                        <div class="ehadmin-event-name">
+                                            AWS Cloud Workshop
+                                        </div>
+
+                                        <div class="ehadmin-event-location">
+                                            Bhubaneswar
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        Nov 02, 2026
+                                    </td>
+
+                                    <td>
+                                        96 / 100
+                                    </td>
+
+                                    <td>
+
+                                        <span class="ehadmin-status ehadmin-status-active">
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="ehadmin-actions">
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-edit"
+                                                data-event="AWS Cloud Workshop">
+
+                                                Edit
+
+                                            </button>
+
+                                            <button
+                                                class="ehadmin-action-btn ehadmin-delete"
+                                                data-event="AWS Cloud Workshop">
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div
+                        class="ehadmin-empty"
+                        id="ehadminEmptyState">
+
+                        No events found.
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT REGISTRATIONS -->
+
+                <div class="ehadmin-card">
+
+                    <div class="ehadmin-card-header">
+
+                        <h2>
+                            Recent Registrations
+                        </h2>
+
+                    </div>
+
+
+                    <div class="ehadmin-registration-list">
+
+
+                        <div class="ehadmin-registration">
+
+                            <div class="ehadmin-user-avatar">
+                                AS
+                            </div>
+
+                            <div class="ehadmin-user-info">
+
+                                <h3>
+                                    Ankit Sharma
+                                </h3>
+
+                                <p>
+                                    Future of Technology
+                                </p>
+
+                            </div>
+
+                            <span class="ehadmin-registration-time">
+                                10m
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehadmin-registration">
+
+                            <div class="ehadmin-user-avatar">
+                                PR
+                            </div>
+
+                            <div class="ehadmin-user-info">
+
+                                <h3>
+                                    Priya Rao
+                                </h3>
+
+                                <p>
+                                    AWS Cloud Workshop
+                                </p>
+
+                            </div>
+
+                            <span class="ehadmin-registration-time">
+                                25m
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehadmin-registration">
+
+                            <div class="ehadmin-user-avatar">
+                                RK
+                            </div>
+
+                            <div class="ehadmin-user-info">
+
+                                <h3>
+                                    Rahul Kumar
+                                </h3>
+
+                                <p>
+                                    Football Championship
+                                </p>
+
+                            </div>
+
+                            <span class="ehadmin-registration-time">
+                                1h
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehadmin-registration">
+
+                            <div class="ehadmin-user-avatar">
+                                SM
+                            </div>
+
+                            <div class="ehadmin-user-info">
+
+                                <h3>
+                                    Sneha Mishra
+                                </h3>
+
+                                <p>
+                                    Creative Arts Exhibition
+                                </p>
+
+                            </div>
+
+                            <span class="ehadmin-registration-time">
+                                2h
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehadmin-registration">
+
+                            <div class="ehadmin-user-avatar">
+                                VK
+                            </div>
+
+                            <div class="ehadmin-user-info">
+
+                                <h3>
+                                    Vivek Kumar
+                                </h3>
+
+                                <p>
+                                    Live Music Festival
+                                </p>
+
+                            </div>
+
+                            <span class="ehadmin-registration-time">
+                                3h
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 QUICK ACTIONS
+            ====================================== -->
+
+            <section class="ehadmin-quick-actions">
+
+
+                <button
+                    class="ehadmin-quick-action"
+                    id="ehadminQuickCreate">
+
+                    <div class="ehadmin-quick-icon">
+                        ➕
+                    </div>
+
+                    <h3>
+                        Create Event
+                    </h3>
+
+                    <p>
+                        Add a new event to EventHub.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="ehadmin-quick-action"
+                    id="ehadminQuickUsers">
+
+                    <div class="ehadmin-quick-icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        Manage Users
+                    </h3>
+
+                    <p>
+                        View and manage registered users.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="ehadmin-quick-action"
+                    id="ehadminQuickReports">
+
+                    <div class="ehadmin-quick-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        View Reports
+                    </h3>
+
+                    <p>
+                        Analyze registrations and events.
+                    </p>
+
+                </button>
+
+
+            </section>
+
+
+            <!-- DEMO NOTICE -->
+
+            <div class="ehadmin-demo">
+
+                <strong>Frontend Demo:</strong>
+
+                Event, user and registration values are currently
+                sample data.
+
+                During backend integration, this dashboard will load
+                real data using
+
+                <strong>
+                    API Gateway → Lambda → RDS MySQL
+                </strong>.
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         CREATE EVENT MODAL
+    ========================================== -->
+
+    <div
+        class="ehadmin-modal-overlay"
+        id="ehadminModalOverlay">
+
+
+        <div class="ehadmin-modal">
+
+
+            <div class="ehadmin-modal-header">
+
+                <h2>
+                    Create New Event
+                </h2>
+
+                <button
+                    class="ehadmin-close"
+                    id="ehadminCloseModal">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <form id="ehadminCreateEventForm">
+
+
+                <div class="ehadmin-form-group">
+
+                    <label>
+                        Event Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ehadminEventTitle"
+                        placeholder="Enter event title"
+                        required>
+
+                </div>
+
+
+                <div class="ehadmin-form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="ehadminEventDescription"
+                        placeholder="Enter event description"
+                        required></textarea>
+
+                </div>
+
+
+                <div class="ehadmin-form-row">
+
+
+                    <div class="ehadmin-form-group">
+
+                        <label>
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="ehadminEventDate"
+                            required>
+
+                    </div>
+
+
+                    <div class="ehadmin-form-group">
+
+                        <label>
+                            Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="ehadminEventTime"
+                            required>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="ehadmin-form-row">
+
+
+                    <div class="ehadmin-form-group">
+
+                        <label>
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ehadminEventLocation"
+                            placeholder="Bhubaneswar"
+                            required>
+
+                    </div>
+
+
+                    <div class="ehadmin-form-group">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <select
+                            id="ehadminEventCategory"
+                            required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="technology">
+                                Technology
+                            </option>
+
+                            <option value="music">
+                                Music
+                            </option>
+
+                            <option value="sports">
+                                Sports
+                            </option>
+
+                            <option value="arts">
+                                Arts
+                            </option>
+
+                            <option value="business">
+                                Business
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ehadmin-form-group">
+
+                    <label>
+                        Capacity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ehadminEventCapacity"
+                        placeholder="100"
+                        min="1"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="ehadmin-submit">
+
+                    Create Event
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="ehadmin-footer">
+
+        © 2026 EventHub Admin Panel. All rights reserved.
+
+    </footer>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================== */
+
+        const ehadminModalOverlay =
+            document.getElementById("ehadminModalOverlay");
+
+        const ehadminAddEventBtn =
+            document.getElementById("ehadminAddEventBtn");
+
+        const ehadminQuickCreate =
+            document.getElementById("ehadminQuickCreate");
+
+        const ehadminCloseModal =
+            document.getElementById("ehadminCloseModal");
+
+
+        /* =========================================
+           OPEN MODAL
+        ========================================== */
+
+        function ehadminOpenModal() {
+
+            ehadminModalOverlay.classList.add("active");
+
+        }
+
+
+        ehadminAddEventBtn.addEventListener(
+            "click",
+            ehadminOpenModal
+        );
+
+
+        ehadminQuickCreate.addEventListener(
+            "click",
+            ehadminOpenModal
+        );
+
+
+        /* =========================================
+           CLOSE MODAL
+        ========================================== */
+
+        ehadminCloseModal.addEventListener(
+            "click",
+            function () {
+
+                ehadminModalOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        ehadminModalOverlay.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    ehadminModalOverlay
+                ) {
+
+                    ehadminModalOverlay.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           CREATE EVENT
+        ========================================== */
+
+        document
+            .getElementById("ehadminCreateEventForm")
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const ehadminTitle =
+                        document.getElementById(
+                            "ehadminEventTitle"
+                        ).value.trim();
+
+
+                    const ehadminCategory =
+                        document.getElementById(
+                            "ehadminEventCategory"
+                        ).value;
+
+
+                    if (
+                        !ehadminTitle ||
+                        !ehadminCategory
+                    ) {
+
+                        alert(
+                            "Please fill all required fields."
+                        );
+
+                        return;
+
+                    }
+
+
+                    alert(
+                        "Event created successfully! (Frontend Demo)"
+                    );
+
+
+                    document
+                        .getElementById(
+                            "ehadminCreateEventForm"
+                        )
+                        .reset();
+
+
+                    ehadminModalOverlay.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           SEARCH + FILTER
+        ========================================== */
+
+        const ehadminSearchInput =
+            document.getElementById(
+                "ehadminSearchInput"
+            );
+
+        const ehadminCategoryFilter =
+            document.getElementById(
+                "ehadminCategoryFilter"
+            );
+
+        const ehadminEventRows =
+            document.querySelectorAll(
+                "#ehadminEventTableBody tr"
+            );
+
+        const ehadminEmptyState =
+            document.getElementById(
+                "ehadminEmptyState"
+            );
+
+
+        function ehadminFilterEvents() {
+
+            const ehadminSearch =
+                ehadminSearchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const ehadminCategory =
+                ehadminCategoryFilter.value;
+
+
+            let ehadminVisibleCount = 0;
+
+
+            ehadminEventRows.forEach(
+                function (row) {
+
+                    const ehadminTitle =
+                        row.dataset.title
+                            .toLowerCase();
+
+                    const ehadminRowCategory =
+                        row.dataset.category;
+
+
+                    const ehadminMatchesSearch =
+                        ehadminTitle.includes(
+                            ehadminSearch
+                        );
+
+
+                    const ehadminMatchesCategory =
+                        ehadminCategory === "all" ||
+                        ehadminRowCategory ===
+                        ehadminCategory;
+
+
+                    if (
+                        ehadminMatchesSearch &&
+                        ehadminMatchesCategory
+                    ) {
+
+                        row.style.display = "";
+
+                        ehadminVisibleCount++;
+
+                    }
+
+                    else {
+
+                        row.style.display = "none";
+
+                    }
+
+                }
+            );
+
+
+            if (ehadminVisibleCount === 0) {
+
+                ehadminEmptyState.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                ehadminEmptyState.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        ehadminSearchInput.addEventListener(
+            "input",
+            ehadminFilterEvents
+        );
+
+
+        ehadminCategoryFilter.addEventListener(
+            "change",
+            ehadminFilterEvents
+        );
+
+
+        /* =========================================
+           EDIT BUTTONS
+        ========================================== */
+
+        document
+            .querySelectorAll(".ehadmin-edit")
+            .forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const ehadminEventName =
+                                this.dataset.event;
+
+
+                            alert(
+                                "Edit: " +
+                                ehadminEventName +
+                                "\n\nEdit functionality will connect to the backend later."
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           DELETE BUTTONS
+        ========================================== */
+
+        document
+            .querySelectorAll(".ehadmin-delete")
+            .forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const ehadminEventName =
+                                this.dataset.event;
+
+
+                            const ehadminConfirm =
+                                confirm(
+                                    "Delete \"" +
+                                    ehadminEventName +
+                                    "\"?"
+                                );
+
+
+                            if (ehadminConfirm) {
+
+                                const ehadminRow =
+                                    this.closest("tr");
+
+
+                                ehadminRow.remove();
+
+
+                                alert(
+                                    "Event deleted. (Frontend Demo)"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================== */
+
+        document
+            .getElementById("ehadminQuickUsers")
+            .addEventListener(
+                "click",
+                function () {
+
+                    alert(
+                        "User management will be connected to RDS in the backend stage."
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById("ehadminQuickReports")
+            .addEventListener(
+                "click",
+                function () {
+
+                    alert(
+                        "Reports and analytics will be implemented in a later stage."
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           LOGOUT
+        ========================================== */
+
+        document
+            .getElementById("ehadminLogoutBtn")
+            .addEventListener(
+                "click",
+                function () {
+
+                    const ehadminConfirm =
+                        confirm(
+                            "Are you sure you want to logout?"
+                        );
+
+
+                    if (ehadminConfirm) {
+
+                        localStorage.removeItem(
+                            "eventhubDemoUser"
+                        );
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+
+                }
+            );
+
+
+        /* =========================================
+           ESCAPE KEY
+        ========================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    ehadminModalOverlay.classList.contains(
+                        "active"
+                    )
+                ) {
+
+                    ehadminModalOverlay.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EventHub | Create Account</title>
+
+
+    <style>
+
+        /* =====================================================
+           EVENTHUB REGISTER PAGE
+
+           Single File:
+           HTML + CSS + JavaScript
+
+           CSS Prefix:
+           ehregister-
+
+           JavaScript Prefix:
+           ehregister-
+
+           No external CSS/JS.
+           ===================================================== */
+
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f8f9fc;
+
+            color: #172033;
+
+            min-height: 100vh;
+
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+           ===================================================== */
+
+        .ehregister-container {
+
+            width: 90%;
+
+            max-width: 1180px;
+
+            margin: auto;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .ehregister-navbar {
+
+            height: 72px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e7e7e7;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+        .ehregister-nav-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+        }
+
+
+        .ehregister-logo {
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .ehregister-logo span {
+
+            color: #635bff;
+
+        }
+
+
+        .ehregister-nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .ehregister-nav-links a {
+
+            color: #555;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehregister-nav-links a:hover {
+
+            color: #635bff;
+
+        }
+
+
+        .ehregister-nav-links
+        .ehregister-active {
+
+            color: #635bff;
+
+            font-weight: 600;
+
+        }
+
+
+        .ehregister-login-btn {
+
+            background: #635bff;
+
+            color: #ffffff !important;
+
+            padding:
+                10px 18px;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* =====================================================
+           MAIN REGISTER AREA
+           ===================================================== */
+
+        .ehregister-main {
+
+            min-height:
+                calc(100vh - 72px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                55px 20px;
+
+        }
+
+
+        .ehregister-wrapper {
+
+            width: 100%;
+
+            max-width: 1050px;
+
+            display: grid;
+
+            grid-template-columns:
+                0.9fr 1.1fr;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e4e6eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,0.07);
+
+        }
+
+
+        /* =====================================================
+           LEFT PANEL
+           ===================================================== */
+
+        .ehregister-brand-panel {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #635bff,
+                    #5149d8
+                );
+
+            color: #ffffff;
+
+            padding: 50px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        .ehregister-brand-panel::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 290px;
+
+            height: 290px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            top: -110px;
+
+            right: -100px;
+
+        }
+
+
+        .ehregister-brand-panel::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+
+            height: 230px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            bottom: -90px;
+
+            left: -80px;
+
+        }
+
+
+        .ehregister-brand-content {
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+
+        .ehregister-brand-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .ehregister-brand-panel h1 {
+
+            font-size: 36px;
+
+            line-height: 1.15;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .ehregister-brand-panel p {
+
+            opacity: 0.88;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           BENEFITS
+           ===================================================== */
+
+        .ehregister-benefits {
+
+            margin-top: 32px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+
+        }
+
+
+        .ehregister-benefit {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 14px;
+
+        }
+
+
+        .ehregister-check {
+
+            width: 25px;
+
+            height: 25px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* =====================================================
+           REGISTER FORM PANEL
+           ===================================================== */
+
+        .ehregister-form-panel {
+
+            padding: 45px 50px;
+
+        }
+
+
+        .ehregister-heading {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .ehregister-heading h2 {
+
+            font-size: 29px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .ehregister-heading p {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           FORM GROUP
+           ===================================================== */
+
+        .ehregister-form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .ehregister-form-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .ehregister-input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .ehregister-input {
+
+            width: 100%;
+
+            height: 45px;
+
+            border:
+                1px solid #dcdfe5;
+
+            border-radius: 8px;
+
+            padding:
+                0 13px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehregister-input:focus {
+
+            border-color: #635bff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99,91,255,0.10);
+
+        }
+
+
+        /* =====================================================
+           PASSWORD INPUT
+           ===================================================== */
+
+        .ehregister-password-input {
+
+            padding-right: 50px;
+
+        }
+
+
+        .ehregister-password-toggle {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD STRENGTH
+           ===================================================== */
+
+        .ehregister-password-strength {
+
+            margin-top: 7px;
+
+            display: none;
+
+        }
+
+
+        .ehregister-strength-bar {
+
+            height: 5px;
+
+            background: #eeeeee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .ehregister-strength-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            transition:
+                width 0.2s;
+
+        }
+
+
+        .ehregister-strength-text {
+
+            font-size: 11px;
+
+            margin-top: 4px;
+
+            color: #777;
+
+        }
+
+
+        /* =====================================================
+           TERMS
+           ===================================================== */
+
+        .ehregister-terms {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            color: #777;
+
+            margin:
+                8px 0 20px;
+
+        }
+
+
+        .ehregister-terms input {
+
+            margin-top: 2px;
+
+            accent-color: #635bff;
+
+            cursor: pointer;
+
+        }
+
+
+        .ehregister-terms a {
+
+            color: #635bff;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
+
+        .ehregister-submit {
+
+            width: 100%;
+
+            height: 47px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #635bff;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehregister-submit:hover {
+
+            background: #5149e8;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .ehregister-submit:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .ehregister-error {
+
+            display: none;
+
+            background: #fff1f2;
+
+            border:
+                1px solid #fecdd3;
+
+            color: #be123c;
+
+            padding:
+                10px 12px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .ehregister-error.ehregister-show {
+
+            display: block;
+
+        }
+
+
+        /* =====================================================
+           SUCCESS
+           ===================================================== */
+
+        .ehregister-success {
+
+            display: none;
+
+            text-align: center;
+
+            padding:
+                30px 10px;
+
+        }
+
+
+        .ehregister-success-icon {
+
+            width: 68px;
+
+            height: 68px;
+
+            border-radius: 50%;
+
+            background: #e8f7ee;
+
+            color: #16834d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 31px;
+
+            margin:
+                0 auto 18px;
+
+        }
+
+
+        .ehregister-success h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .ehregister-success p {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .ehregister-success a {
+
+            display: inline-block;
+
+            background: #635bff;
+
+            color: #ffffff;
+
+            padding:
+                11px 20px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           LOGIN LINK
+           ===================================================== */
+
+        .ehregister-login-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 13px;
+
+            color: #777;
+
+        }
+
+
+        .ehregister-login-text a {
+
+            color: #635bff;
+
+            font-weight: 700;
+
+        }
+
+
+        .ehregister-login-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .ehregister-footer {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding:
+                35px 0 18px;
+
+        }
+
+
+        .ehregister-footer-inner {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .ehregister-footer-logo {
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+        }
+
+
+        .ehregister-footer-logo span {
+
+            color: #8b85ff;
+
+        }
+
+
+        .ehregister-footer p {
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+
+        }
+
+
+        .ehregister-footer-links {
+
+            display: flex;
+
+            gap: 20px;
+
+        }
+
+
+        .ehregister-footer-links a {
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+
+        }
+
+
+        .ehregister-footer-links a:hover {
+
+            color: #ffffff;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .ehregister-wrapper {
+
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+
+            }
+
+
+            .ehregister-brand-panel {
+
+                padding: 40px;
+
+            }
+
+
+            .ehregister-benefits {
+
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .ehregister-form-panel {
+
+                padding: 40px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .ehregister-nav-links
+            a:not(.ehregister-login-btn) {
+
+                display: none;
+
+            }
+
+
+            .ehregister-main {
+
+                padding:
+                    30px 15px;
+
+            }
+
+
+            .ehregister-brand-panel {
+
+                padding: 30px;
+
+            }
+
+
+            .ehregister-form-panel {
+
+                padding: 30px;
+
+            }
+
+
+            .ehregister-benefits {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .ehregister-brand-panel h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="ehregister-navbar">
+
+        <div
+            class="
+                ehregister-container
+                ehregister-nav-inner
+            "
+        >
+
+            <a
+                href="index.html"
+                class="ehregister-logo"
+            >
+                Event<span>Hub</span>
+            </a>
+
+
+            <nav class="ehregister-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <a
+                    href="register.html"
+                    class="ehregister-login-btn"
+                >
+                    Create Account
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="ehregister-main">
+
+        <div class="ehregister-wrapper">
+
+
+            <!-- =================================================
+                 BRAND PANEL
+                 ================================================= -->
+
+            <section class="ehregister-brand-panel">
+
+                <div class="ehregister-brand-content">
+
+
+                    <div class="ehregister-brand-icon">
+                        🎟️
+                    </div>
+
+
+                    <h1>
+                        Join EventHub
+                    </h1>
+
+
+                    <p>
+                        Create your account and start
+                        discovering amazing events,
+                        workshops and experiences.
+                    </p>
+
+
+                    <div class="ehregister-benefits">
+
+
+                        <div class="ehregister-benefit">
+
+                            <div class="ehregister-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Discover exciting events
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehregister-benefit">
+
+                            <div class="ehregister-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Register in seconds
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehregister-benefit">
+
+                            <div class="ehregister-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Manage your bookings
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehregister-benefit">
+
+                            <div class="ehregister-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Never miss an event
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REGISTER FORM
+                 ================================================= -->
+
+            <section class="ehregister-form-panel">
+
+
+                <div class="ehregister-heading">
+
+                    <h2>
+                        Create Account
+                    </h2>
+
+                    <p>
+                        Fill in your details to get started.
+                    </p>
+
+                </div>
+
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="ehregisterError"
+                    class="ehregister-error"
+                >
+                </div>
+
+
+
+                <!-- FORM -->
+
+                <form
+                    id="ehregisterForm"
+                    novalidate
+                >
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="ehregister-form-group">
+
+                        <label for="ehregisterName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ehregisterName"
+                            class="ehregister-input"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                        >
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="ehregister-form-group">
+
+                        <label for="ehregisterEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="ehregisterEmail"
+                            class="ehregister-input"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="ehregister-form-group">
+
+                        <label for="ehregisterPassword">
+                            Password
+                        </label>
+
+
+                        <div
+                            class="
+                                ehregister-input-wrapper
+                            "
+                        >
+
+                            <input
+                                type="password"
+                                id="ehregisterPassword"
+                                class="
+                                    ehregister-input
+                                    ehregister-password-input
+                                "
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="ehregisterPasswordToggle"
+                                class="ehregister-password-toggle"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+
+                        <!-- STRENGTH -->
+
+                        <div
+                            id="ehregisterStrength"
+                            class="
+                                ehregister-password-strength
+                            "
+                        >
+
+                            <div
+                                class="
+                                    ehregister-strength-bar
+                                "
+                            >
+
+                                <div
+                                    id="ehregisterStrengthFill"
+                                    class="
+                                        ehregister-strength-fill
+                                    "
+                                ></div>
+
+                            </div>
+
+
+                            <div
+                                id="ehregisterStrengthText"
+                                class="
+                                    ehregister-strength-text
+                                "
+                            >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="ehregister-form-group">
+
+                        <label for="ehregisterConfirmPassword">
+                            Confirm Password
+                        </label>
+
+
+                        <div
+                            class="
+                                ehregister-input-wrapper
+                            "
+                        >
+
+                            <input
+                                type="password"
+                                id="ehregisterConfirmPassword"
+                                class="
+                                    ehregister-input
+                                    ehregister-password-input
+                                "
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="ehregisterConfirmToggle"
+                                class="
+                                    ehregister-password-toggle
+                                "
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TERMS -->
+
+                    <label class="ehregister-terms">
+
+                        <input
+                            type="checkbox"
+                            id="ehregisterTerms"
+                        >
+
+                        <span>
+
+                            I agree to the
+                            <a href="#">
+                                Terms & Conditions
+                            </a>
+                            and
+                            <a href="#">
+                                Privacy Policy
+                            </a>.
+
+                        </span>
+
+                    </label>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        id="ehregisterSubmit"
+                        class="ehregister-submit"
+                    >
+                        Create Account
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- LOGIN -->
+
+                <p class="ehregister-login-text">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Sign in
+                    </a>
+
+                </p>
+
+
+
+                <!-- SUCCESS -->
+
+                <div
+                    id="ehregisterSuccess"
+                    class="ehregister-success"
+                >
+
+                    <div
+                        class="
+                            ehregister-success-icon
+                        "
+                    >
+                        ✓
+                    </div>
+
+
+                    <h2>
+                        Account Created!
+                    </h2>
+
+
+                    <p>
+                        Your EventHub account has been
+                        created successfully.
+                    </p>
+
+
+                    <a href="login.html">
+                        Continue to Login
+                    </a>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="ehregister-footer">
+
+        <div
+            class="
+                ehregister-container
+                ehregister-footer-inner
+            "
+        >
+
+
+            <div>
+
+                <div
+                    class="
+                        ehregister-footer-logo
+                    "
+                >
+                    Event<span>Hub</span>
+                </div>
+
+                <p>
+                    Discover. Register. Experience.
+                </p>
+
+            </div>
+
+
+            <div
+                class="
+                    ehregister-footer-links
+                "
+            >
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /*
+        ========================================================
+        EVENTHUB REGISTER JAVASCRIPT
+
+        Everything is contained in this page.
+
+        Actual registration will later become:
+
+        Register Form
+             ↓
+        API Gateway
+             ↓
+        Lambda
+             ↓
+        RDS MySQL
+             ↓
+        User Created
+        ========================================================
+        */
+
+
+        /* =====================================================
+           ELEMENTS
+           ===================================================== */
+
+        const ehregisterForm =
+            document.getElementById(
+                "ehregisterForm"
+            );
+
+
+        const ehregisterName =
+            document.getElementById(
+                "ehregisterName"
+            );
+
+
+        const ehregisterEmail =
+            document.getElementById(
+                "ehregisterEmail"
+            );
+
+
+        const ehregisterPassword =
+            document.getElementById(
+                "ehregisterPassword"
+            );
+
+
+        const ehregisterConfirmPassword =
+            document.getElementById(
+                "ehregisterConfirmPassword"
+            );
+
+
+        const ehregisterTerms =
+            document.getElementById(
+                "ehregisterTerms"
+            );
+
+
+        const ehregisterSubmit =
+            document.getElementById(
+                "ehregisterSubmit"
+            );
+
+
+        const ehregisterError =
+            document.getElementById(
+                "ehregisterError"
+            );
+
+
+        const ehregisterSuccess =
+            document.getElementById(
+                "ehregisterSuccess"
+            );
+
+
+        const ehregisterPasswordToggle =
+            document.getElementById(
+                "ehregisterPasswordToggle"
+            );
+
+
+        const ehregisterConfirmToggle =
+            document.getElementById(
+                "ehregisterConfirmToggle"
+            );
+
+
+        const ehregisterStrength =
+            document.getElementById(
+                "ehregisterStrength"
+            );
+
+
+        const ehregisterStrengthFill =
+            document.getElementById(
+                "ehregisterStrengthFill"
+            );
+
+
+        const ehregisterStrengthText =
+            document.getElementById(
+                "ehregisterStrengthText"
+            );
+
+
+
+        /* =====================================================
+           SHOW / HIDE PASSWORD
+           ===================================================== */
+
+        ehregisterPasswordToggle.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    ehregisterPassword.type ===
+                    "password"
+                ) {
+
+                    ehregisterPassword.type =
+                        "text";
+
+                    ehregisterPasswordToggle
+                        .textContent = "🙈";
+
+                }
+
+                else {
+
+                    ehregisterPassword.type =
+                        "password";
+
+                    ehregisterPasswordToggle
+                        .textContent = "👁️";
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           SHOW / HIDE CONFIRM PASSWORD
+           ===================================================== */
+
+        ehregisterConfirmToggle.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    ehregisterConfirmPassword.type ===
+                    "password"
+                ) {
+
+                    ehregisterConfirmPassword.type =
+                        "text";
+
+                    ehregisterConfirmToggle
+                        .textContent = "🙈";
+
+                }
+
+                else {
+
+                    ehregisterConfirmPassword.type =
+                        "password";
+
+                    ehregisterConfirmToggle
+                        .textContent = "👁️";
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           EMAIL VALIDATION
+           ===================================================== */
+
+        function ehregisterValidEmail(email) {
+
+            const pattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return pattern.test(email);
+
+        }
+
+
+
+        /* =====================================================
+           SHOW ERROR
+           ===================================================== */
+
+        function ehregisterShowError(message) {
+
+            ehregisterError.textContent =
+                message;
+
+            ehregisterError.classList.add(
+                "ehregister-show"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           HIDE ERROR
+           ===================================================== */
+
+        function ehregisterHideError() {
+
+            ehregisterError.textContent = "";
+
+            ehregisterError.classList.remove(
+                "ehregister-show"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           PASSWORD STRENGTH
+           ===================================================== */
+
+        ehregisterPassword.addEventListener(
+            "input",
+            function () {
+
+
+                const password =
+                    ehregisterPassword.value;
+
+
+                if (password.length === 0) {
+
+                    ehregisterStrength.style.display =
+                        "none";
+
+                    return;
+
+                }
+
+
+                ehregisterStrength.style.display =
+                    "block";
+
+
+                let score = 0;
+
+
+                /* LENGTH */
+
+                if (password.length >= 6) {
+
+                    score++;
+
+                }
+
+
+                /* LONG PASSWORD */
+
+                if (password.length >= 10) {
+
+                    score++;
+
+                }
+
+
+                /* LOWERCASE */
+
+                if (/[a-z]/.test(password)) {
+
+                    score++;
+
+                }
+
+
+                /* UPPERCASE */
+
+                if (/[A-Z]/.test(password)) {
+
+                    score++;
+
+                }
+
+
+                /* NUMBER */
+
+                if (/[0-9]/.test(password)) {
+
+                    score++;
+
+                }
+
+
+                /* SPECIAL CHARACTER */
+
+                if (
+                    /[^A-Za-z0-9]/.test(password)
+                ) {
+
+                    score++;
+
+                }
+
+
+
+                /* =================================================
+                   STRENGTH DISPLAY
+                   ================================================= */
+
+
+                if (score <= 2) {
+
+                    ehregisterStrengthFill.style.width =
+                        "33%";
+
+                    ehregisterStrengthText.textContent =
+                        "Weak password";
+
+                }
+
+                else if (score <= 4) {
+
+                    ehregisterStrengthFill.style.width =
+                        "66%";
+
+                    ehregisterStrengthText.textContent =
+                        "Medium password";
+
+                }
+
+                else {
+
+                    ehregisterStrengthFill.style.width =
+                        "100%";
+
+                    ehregisterStrengthText.textContent =
+                        "Strong password";
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           FORM SUBMIT
+           ===================================================== */
+
+        ehregisterForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                ehregisterHideError();
+
+
+                const name =
+                    ehregisterName.value.trim();
+
+
+                const email =
+                    ehregisterEmail.value.trim();
+
+
+                const password =
+                    ehregisterPassword.value;
+
+
+                const confirmPassword =
+                    ehregisterConfirmPassword.value;
+
+
+
+                /* =================================================
+                   NAME
+                   ================================================= */
+
+                if (name === "") {
+
+                    ehregisterShowError(
+                        "Please enter your full name."
+                    );
+
+                    ehregisterName.focus();
+
+                    return;
+
+                }
+
+
+                if (name.length < 3) {
+
+                    ehregisterShowError(
+                        "Name must contain at least 3 characters."
+                    );
+
+                    ehregisterName.focus();
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   EMAIL
+                   ================================================= */
+
+                if (email === "") {
+
+                    ehregisterShowError(
+                        "Please enter your email address."
+                    );
+
+                    ehregisterEmail.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    !ehregisterValidEmail(email)
+                ) {
+
+                    ehregisterShowError(
+                        "Please enter a valid email address."
+                    );
+
+                    ehregisterEmail.focus();
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   PASSWORD
+                   ================================================= */
+
+                if (password === "") {
+
+                    ehregisterShowError(
+                        "Please create a password."
+                    );
+
+                    ehregisterPassword.focus();
+
+                    return;
+
+                }
+
+
+                if (password.length < 6) {
+
+                    ehregisterShowError(
+                        "Password must contain at least 6 characters."
+                    );
+
+                    ehregisterPassword.focus();
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   CONFIRM PASSWORD
+                   ================================================= */
+
+                if (confirmPassword === "") {
+
+                    ehregisterShowError(
+                        "Please confirm your password."
+                    );
+
+                    ehregisterConfirmPassword.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    ehregisterShowError(
+                        "Passwords do not match."
+                    );
+
+                    ehregisterConfirmPassword.focus();
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   TERMS
+                   ================================================= */
+
+                if (
+                    !ehregisterTerms.checked
+                ) {
+
+                    ehregisterShowError(
+                        "Please accept the Terms & Conditions."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   LOADING
+                   ================================================= */
+
+                ehregisterSubmit.disabled =
+                    true;
+
+                ehregisterSubmit.textContent =
+                    "Creating Account...";
+
+
+
+                /*
+                ====================================================
+                TEMPORARY FRONTEND DEMO
+
+                Later this will become:
+
+                fetch(API_GATEWAY_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password
+                    })
+                })
+
+                ====================================================
+                */
+
+
+                setTimeout(
+                    function () {
+
+
+                        ehregisterSubmit.disabled =
+                            false;
+
+
+                        ehregisterSubmit.textContent =
+                            "Create Account";
+
+
+                        /* SAVE DEMO USER */
+
+                        localStorage.setItem(
+                            "eventhubDemoUser",
+                            JSON.stringify({
+                                name: name,
+                                email: email
+                            })
+                        );
+
+
+                        /* HIDE FORM */
+
+                        ehregisterForm.style.display =
+                            "none";
+
+
+                        /* HIDE LOGIN TEXT */
+
+                        document.querySelector(
+                            ".ehregister-login-text"
+                        ).style.display =
+                            "none";
+
+
+                        /* SHOW SUCCESS */
+
+                        ehregisterSuccess.style.display =
+                            "block";
+
+
+                    },
+                    1000
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           REMOVE ERROR WHILE TYPING
+           ===================================================== */
+
+        ehregisterName.addEventListener(
+            "input",
+            ehregisterHideError
+        );
+
+
+        ehregisterEmail.addEventListener(
+            "input",
+            ehregisterHideError
+        );
+
+
+        ehregisterPassword.addEventListener(
+            "input",
+            ehregisterHideError
+        );
+
+
+        ehregisterConfirmPassword.addEventListener(
+            "input",
+            ehregisterHideError
+        );
+
+
+        ehregisterTerms.addEventListener(
+            "change",
+            ehregisterHideError
+        );
+
+    </script>
+
+
+</body>
+
+</html>

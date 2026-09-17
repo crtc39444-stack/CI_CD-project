@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EventHub | Login</title>
+
+
+    <style>
+
+        /* =====================================================
+           EVENTHUB LOGIN PAGE
+
+           Single-file architecture:
+           HTML + CSS + JavaScript
+
+           CSS Prefix:
+           ehlogin-
+
+           JavaScript Prefix:
+           ehlogin-
+
+           This prevents overlap with other pages.
+           ===================================================== */
+
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f8f9fc;
+
+            color: #172033;
+
+            min-height: 100vh;
+
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+           ===================================================== */
+
+        .ehlogin-container {
+
+            width: 90%;
+
+            max-width: 1180px;
+
+            margin: auto;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .ehlogin-navbar {
+
+            height: 72px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e7e7e7;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+        .ehlogin-nav-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+        }
+
+
+        .ehlogin-logo {
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .ehlogin-logo span {
+
+            color: #635bff;
+
+        }
+
+
+        .ehlogin-nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .ehlogin-nav-links a {
+
+            color: #555;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehlogin-nav-links a:hover {
+
+            color: #635bff;
+
+        }
+
+
+        .ehlogin-nav-links
+        .ehlogin-active {
+
+            color: #635bff;
+
+            font-weight: 600;
+
+        }
+
+
+        .ehlogin-start-btn {
+
+            background: #635bff;
+
+            color: #ffffff !important;
+
+            padding:
+                10px 18px;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* =====================================================
+           LOGIN AREA
+           ===================================================== */
+
+        .ehlogin-main {
+
+            min-height:
+                calc(100vh - 72px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                60px 20px;
+
+        }
+
+
+        .ehlogin-wrapper {
+
+            width: 100%;
+
+            max-width: 1050px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e4e6eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,0.07);
+
+        }
+
+
+        /* =====================================================
+           LEFT PANEL
+           ===================================================== */
+
+        .ehlogin-brand-panel {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #635bff,
+                    #5149d8
+                );
+
+            color: #ffffff;
+
+            padding: 55px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        .ehlogin-brand-panel::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+
+            height: 280px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            top: -100px;
+
+            right: -90px;
+
+        }
+
+
+        .ehlogin-brand-panel::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+
+            height: 220px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            bottom: -90px;
+
+            left: -80px;
+
+        }
+
+
+        .ehlogin-brand-content {
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+
+        .ehlogin-brand-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .ehlogin-brand-panel h1 {
+
+            font-size: 38px;
+
+            line-height: 1.15;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .ehlogin-brand-panel > div > p {
+
+            opacity: 0.88;
+
+            max-width: 420px;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           BENEFITS
+           ===================================================== */
+
+        .ehlogin-benefits {
+
+            margin-top: 35px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+
+        }
+
+
+        .ehlogin-benefit {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 14px;
+
+        }
+
+
+        .ehlogin-check {
+
+            width: 25px;
+
+            height: 25px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* =====================================================
+           RIGHT LOGIN PANEL
+           ===================================================== */
+
+        .ehlogin-form-panel {
+
+            padding: 55px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+        }
+
+
+        .ehlogin-form-heading {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .ehlogin-form-heading h2 {
+
+            font-size: 30px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .ehlogin-form-heading p {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .ehlogin-form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .ehlogin-form-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .ehlogin-input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .ehlogin-input {
+
+            width: 100%;
+
+            height: 48px;
+
+            border:
+                1px solid #dcdfe5;
+
+            border-radius: 8px;
+
+            padding:
+                0 14px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehlogin-input:focus {
+
+            border-color: #635bff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99,91,255,0.10);
+
+        }
+
+
+        /* =====================================================
+           PASSWORD INPUT
+           ===================================================== */
+
+        .ehlogin-password-input {
+
+            padding-right: 50px;
+
+        }
+
+
+        .ehlogin-password-toggle {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            color: #777;
+
+        }
+
+
+        /* =====================================================
+           FORM OPTIONS
+           ===================================================== */
+
+        .ehlogin-form-options {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin:
+                3px 0 25px;
+
+            font-size: 13px;
+
+        }
+
+
+        .ehlogin-remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #666;
+
+        }
+
+
+        .ehlogin-remember input {
+
+            accent-color: #635bff;
+
+            cursor: pointer;
+
+        }
+
+
+        .ehlogin-forgot {
+
+            color: #635bff;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+           ===================================================== */
+
+        .ehlogin-submit {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #635bff;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehlogin-submit:hover {
+
+            background: #5149e8;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .ehlogin-submit:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        /* =====================================================
+           DIVIDER
+           ===================================================== */
+
+        .ehlogin-divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin:
+                25px 0;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+        }
+
+
+        .ehlogin-divider::before,
+        .ehlogin-divider::after {
+
+            content: "";
+
+            height: 1px;
+
+            background: #eeeeee;
+
+            flex: 1;
+
+        }
+
+
+        /* =====================================================
+           REGISTER LINK
+           ===================================================== */
+
+        .ehlogin-register-text {
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #777;
+
+        }
+
+
+        .ehlogin-register-text a {
+
+            color: #635bff;
+
+            font-weight: 700;
+
+        }
+
+
+        .ehlogin-register-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           ERROR MESSAGE
+           ===================================================== */
+
+        .ehlogin-error {
+
+            display: none;
+
+            background: #fff1f2;
+
+            border:
+                1px solid #fecdd3;
+
+            color: #be123c;
+
+            padding:
+                10px 12px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .ehlogin-error.ehlogin-show {
+
+            display: block;
+
+        }
+
+
+        /* =====================================================
+           SUCCESS MESSAGE
+           ===================================================== */
+
+        .ehlogin-success {
+
+            display: none;
+
+            text-align: center;
+
+            padding:
+                20px 0;
+
+        }
+
+
+        .ehlogin-success-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 50%;
+
+            background: #e8f7ee;
+
+            color: #16834d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin:
+                0 auto 18px;
+
+        }
+
+
+        .ehlogin-success h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .ehlogin-success p {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .ehlogin-footer {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding:
+                35px 0 18px;
+
+        }
+
+
+        .ehlogin-footer-inner {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .ehlogin-footer-logo {
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+        }
+
+
+        .ehlogin-footer-logo span {
+
+            color: #8b85ff;
+
+        }
+
+
+        .ehlogin-footer p {
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+
+        }
+
+
+        .ehlogin-footer-links {
+
+            display: flex;
+
+            gap: 20px;
+
+        }
+
+
+        .ehlogin-footer-links a {
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+
+        }
+
+
+        .ehlogin-footer-links a:hover {
+
+            color: #ffffff;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .ehlogin-wrapper {
+
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+
+            }
+
+
+            .ehlogin-brand-panel {
+
+                padding: 40px;
+
+            }
+
+
+            .ehlogin-brand-panel h1 {
+
+                font-size: 32px;
+
+            }
+
+
+            .ehlogin-benefits {
+
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .ehlogin-form-panel {
+
+                padding: 40px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .ehlogin-nav-links
+            a:not(.ehlogin-start-btn) {
+
+                display: none;
+
+            }
+
+
+            .ehlogin-main {
+
+                padding:
+                    30px 15px;
+
+            }
+
+
+            .ehlogin-brand-panel {
+
+                padding: 30px;
+
+            }
+
+
+            .ehlogin-form-panel {
+
+                padding: 30px;
+
+            }
+
+
+            .ehlogin-benefits {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .ehlogin-form-options {
+
+                align-items:
+                    flex-start;
+
+                gap: 10px;
+
+            }
+
+
+            .ehlogin-footer-inner {
+
+                flex-direction: column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="ehlogin-navbar">
+
+        <div
+            class="ehlogin-container
+                   ehlogin-nav-inner"
+        >
+
+            <a
+                href="index.html"
+                class="ehlogin-logo"
+            >
+                Event<span>Hub</span>
+            </a>
+
+
+            <nav class="ehlogin-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a
+                    href="login.html"
+                    class="ehlogin-active"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="register.html"
+                    class="ehlogin-start-btn"
+                >
+                    Get Started
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         LOGIN MAIN
+         ===================================================== -->
+
+    <main class="ehlogin-main">
+
+        <div class="ehlogin-wrapper">
+
+
+            <!-- =================================================
+                 LEFT BRAND PANEL
+                 ================================================= -->
+
+            <section class="ehlogin-brand-panel">
+
+                <div class="ehlogin-brand-content">
+
+
+                    <div class="ehlogin-brand-icon">
+                        🎟️
+                    </div>
+
+
+                    <h1>
+                        Welcome Back!
+                    </h1>
+
+
+                    <p>
+                        Sign in to your EventHub account
+                        and continue discovering exciting
+                        events and experiences.
+                    </p>
+
+
+                    <div class="ehlogin-benefits">
+
+
+                        <div class="ehlogin-benefit">
+
+                            <div class="ehlogin-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Discover upcoming events
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehlogin-benefit">
+
+                            <div class="ehlogin-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Manage your registrations
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehlogin-benefit">
+
+                            <div class="ehlogin-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Save your favorite events
+                            </span>
+
+                        </div>
+
+
+                        <div class="ehlogin-benefit">
+
+                            <div class="ehlogin-check">
+                                ✓
+                            </div>
+
+                            <span>
+                                Get event updates
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOGIN FORM
+                 ================================================= -->
+
+            <section class="ehlogin-form-panel">
+
+
+                <div class="ehlogin-form-heading">
+
+                    <h2>
+                        Sign in
+                    </h2>
+
+                    <p>
+                        Enter your details to access
+                        your account.
+                    </p>
+
+                </div>
+
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="ehloginError"
+                    class="ehlogin-error"
+                >
+                </div>
+
+
+
+                <!-- LOGIN FORM -->
+
+                <form
+                    id="ehloginForm"
+                    novalidate
+                >
+
+
+                    <!-- EMAIL -->
+
+                    <div class="ehlogin-form-group">
+
+                        <label for="ehloginEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="ehloginEmail"
+                            class="ehlogin-input"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="ehlogin-form-group">
+
+                        <label for="ehloginPassword">
+                            Password
+                        </label>
+
+
+                        <div
+                            class="ehlogin-input-wrapper"
+                        >
+
+                            <input
+                                type="password"
+                                id="ehloginPassword"
+                                class="
+                                    ehlogin-input
+                                    ehlogin-password-input
+                                "
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="ehloginPasswordToggle"
+                                class="ehlogin-password-toggle"
+                                aria-label="Show password"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="ehlogin-form-options">
+
+
+                        <label class="ehlogin-remember">
+
+                            <input
+                                type="checkbox"
+                                id="ehloginRemember"
+                            >
+
+                            Remember me
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            id="ehloginForgot"
+                            class="ehlogin-forgot"
+                        >
+                            Forgot password?
+                        </a>
+
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        id="ehloginSubmit"
+                        class="ehlogin-submit"
+                    >
+                        Sign In
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- DIVIDER -->
+
+                <div class="ehlogin-divider">
+                    OR
+                </div>
+
+
+
+                <!-- REGISTER -->
+
+                <p class="ehlogin-register-text">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create an account
+                    </a>
+
+                </p>
+
+
+
+                <!-- SUCCESS -->
+
+                <div
+                    id="ehloginSuccess"
+                    class="ehlogin-success"
+                >
+
+                    <div class="ehlogin-success-icon">
+                        ✓
+                    </div>
+
+                    <h2>
+                        Login Successful!
+                    </h2>
+
+                    <p>
+                        Welcome back to EventHub.
+                    </p>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="ehlogin-footer">
+
+        <div
+            class="
+                ehlogin-container
+                ehlogin-footer-inner
+            "
+        >
+
+
+            <div>
+
+                <div class="ehlogin-footer-logo">
+
+                    Event<span>Hub</span>
+
+                </div>
+
+                <p>
+                    Discover. Register. Experience.
+                </p>
+
+            </div>
+
+
+            <div class="ehlogin-footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="register.html">
+                    Register
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /*
+        ========================================================
+        EVENTHUB LOGIN JAVASCRIPT
+
+        This JavaScript belongs ONLY to login.html.
+
+        Actual authentication will later be:
+
+        Login Form
+             ↓
+        API Gateway
+             ↓
+        Lambda
+             ↓
+        RDS MySQL
+
+        For now we only perform frontend validation.
+        ========================================================
+        */
+
+
+        /* =====================================================
+           ELEMENTS
+           ===================================================== */
+
+        const ehloginForm =
+            document.getElementById(
+                "ehloginForm"
+            );
+
+
+        const ehloginEmail =
+            document.getElementById(
+                "ehloginEmail"
+            );
+
+
+        const ehloginPassword =
+            document.getElementById(
+                "ehloginPassword"
+            );
+
+
+        const ehloginRemember =
+            document.getElementById(
+                "ehloginRemember"
+            );
+
+
+        const ehloginSubmit =
+            document.getElementById(
+                "ehloginSubmit"
+            );
+
+
+        const ehloginPasswordToggle =
+            document.getElementById(
+                "ehloginPasswordToggle"
+            );
+
+
+        const ehloginError =
+            document.getElementById(
+                "ehloginError"
+            );
+
+
+        const ehloginSuccess =
+            document.getElementById(
+                "ehloginSuccess"
+            );
+
+
+        const ehloginForgot =
+            document.getElementById(
+                "ehloginForgot"
+            );
+
+
+
+        /* =====================================================
+           SHOW / HIDE PASSWORD
+           ===================================================== */
+
+        ehloginPasswordToggle.addEventListener(
+            "click",
+            function () {
+
+
+                if (
+                    ehloginPassword.type ===
+                    "password"
+                ) {
+
+                    ehloginPassword.type =
+                        "text";
+
+                    ehloginPasswordToggle.textContent =
+                        "🙈";
+
+                    ehloginPasswordToggle
+                        .setAttribute(
+                            "aria-label",
+                            "Hide password"
+                        );
+
+                }
+
+                else {
+
+                    ehloginPassword.type =
+                        "password";
+
+                    ehloginPasswordToggle.textContent =
+                        "👁️";
+
+                    ehloginPasswordToggle
+                        .setAttribute(
+                            "aria-label",
+                            "Show password"
+                        );
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           ERROR FUNCTION
+           ===================================================== */
+
+        function ehloginShowError(message) {
+
+            ehloginError.textContent =
+                message;
+
+            ehloginError.classList.add(
+                "ehlogin-show"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           HIDE ERROR
+           ===================================================== */
+
+        function ehloginHideError() {
+
+            ehloginError.textContent = "";
+
+            ehloginError.classList.remove(
+                "ehlogin-show"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           EMAIL VALIDATION
+           ===================================================== */
+
+        function ehloginIsValidEmail(email) {
+
+            const pattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return pattern.test(email);
+
+        }
+
+
+
+        /* =====================================================
+           LOGIN SUBMIT
+           ===================================================== */
+
+        ehloginForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                ehloginHideError();
+
+
+                const email =
+                    ehloginEmail.value
+                        .trim();
+
+
+                const password =
+                    ehloginPassword.value;
+
+
+                /* ---------- EMAIL ---------- */
+
+                if (email === "") {
+
+                    ehloginShowError(
+                        "Please enter your email address."
+                    );
+
+                    ehloginEmail.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    !ehloginIsValidEmail(email)
+                ) {
+
+                    ehloginShowError(
+                        "Please enter a valid email address."
+                    );
+
+                    ehloginEmail.focus();
+
+                    return;
+
+                }
+
+
+                /* ---------- PASSWORD ---------- */
+
+                if (password === "") {
+
+                    ehloginShowError(
+                        "Please enter your password."
+                    );
+
+                    ehloginPassword.focus();
+
+                    return;
+
+                }
+
+
+                if (password.length < 6) {
+
+                    ehloginShowError(
+                        "Password must contain at least 6 characters."
+                    );
+
+                    ehloginPassword.focus();
+
+                    return;
+
+                }
+
+
+                /* ---------- LOADING ---------- */
+
+                ehloginSubmit.disabled =
+                    true;
+
+                ehloginSubmit.textContent =
+                    "Signing in...";
+
+
+                /*
+                ------------------------------------------------
+                TEMPORARY FRONTEND DEMO
+
+                Later this section will be replaced with:
+
+                fetch(API_GATEWAY_URL, {
+                    method: "POST",
+                    body: JSON.stringify(...)
+                })
+
+                ------------------------------------------------
+                */
+
+
+                setTimeout(
+                    function () {
+
+
+                        ehloginSubmit.disabled =
+                            false;
+
+
+                        ehloginSubmit.textContent =
+                            "Sign In";
+
+
+                        /*
+                        Remember-me demonstration.
+                        */
+
+                        if (
+                            ehloginRemember.checked
+                        ) {
+
+                            localStorage.setItem(
+                                "eventhubRememberEmail",
+                                email
+                            );
+
+                        }
+
+
+                        /* ---------- SUCCESS ---------- */
+
+                        ehloginForm.style.display =
+                            "none";
+
+
+                        ehloginSuccess.style.display =
+                            "block";
+
+
+                    },
+                    1000
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           FORGOT PASSWORD
+           ===================================================== */
+
+        ehloginForgot.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    ehloginEmail.value
+                        .trim();
+
+
+                if (email === "") {
+
+                    ehloginShowError(
+                        "Enter your email first to reset your password."
+                    );
+
+                    ehloginEmail.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    !ehloginIsValidEmail(email)
+                ) {
+
+                    ehloginShowError(
+                        "Please enter a valid email address."
+                    );
+
+                    ehloginEmail.focus();
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Password reset functionality will be connected to AWS backend later."
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           REMEMBERED EMAIL
+           ===================================================== */
+
+        const ehloginSavedEmail =
+            localStorage.getItem(
+                "eventhubRememberEmail"
+            );
+
+
+        if (ehloginSavedEmail) {
+
+            ehloginEmail.value =
+                ehloginSavedEmail;
+
+            ehloginRemember.checked =
+                true;
+
+        }
+
+
+
+        /* =====================================================
+           REMOVE ERROR WHILE TYPING
+           ===================================================== */
+
+        ehloginEmail.addEventListener(
+            "input",
+            ehloginHideError
+        );
+
+
+        ehloginPassword.addEventListener(
+            "input",
+            ehloginHideError
+        );
+
+    </script>
+
+
+</body>
+
+</html>

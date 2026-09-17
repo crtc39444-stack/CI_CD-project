@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventHub | Event Details</title>
+
+
+    <style>
+
+        /* =====================================================
+           EVENTHUB - EVENT DETAILS PAGE
+           
+           Everything is inside this single HTML file.
+           
+           CSS Prefix:
+           ehed-
+           
+           JavaScript Prefix:
+           ehed-
+           
+           This prevents overlap with other pages.
+           ===================================================== */
+
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f8f9fc;
+
+            color: #172033;
+
+            line-height: 1.6;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+           ===================================================== */
+
+        .ehed-container {
+
+            width: 90%;
+
+            max-width: 1180px;
+
+            margin: auto;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .ehed-navbar {
+
+            height: 72px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e7e7e7;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+        .ehed-nav-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+        }
+
+
+        .ehed-logo {
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .ehed-logo span {
+
+            color: #635bff;
+
+        }
+
+
+        .ehed-nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .ehed-nav-links a {
+
+            font-size: 14px;
+
+            color: #555;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehed-nav-links a:hover {
+
+            color: #635bff;
+
+        }
+
+
+        .ehed-nav-links .ehed-active {
+
+            color: #635bff;
+
+            font-weight: 600;
+
+        }
+
+
+        .ehed-start-btn {
+
+            background: #635bff;
+
+            color: #ffffff !important;
+
+            padding:
+                10px 18px;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* =====================================================
+           BREADCRUMB
+           ===================================================== */
+
+        .ehed-breadcrumb-area {
+
+            padding: 25px 0;
+
+        }
+
+
+        .ehed-breadcrumb {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            color: #777;
+
+        }
+
+
+        .ehed-breadcrumb a {
+
+            color: #635bff;
+
+        }
+
+
+        /* =====================================================
+           MAIN EVENT SECTION
+           ===================================================== */
+
+        .ehed-main {
+
+            padding-bottom: 80px;
+
+        }
+
+
+        .ehed-event-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1.6fr
+                0.9fr;
+
+            gap: 30px;
+
+            align-items: start;
+
+        }
+
+
+        /* =====================================================
+           EVENT HERO
+           ===================================================== */
+
+        .ehed-event-hero {
+
+            min-height: 390px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #42a5f5,
+                    #5c6bc0
+                );
+
+            padding: 30px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content:
+                space-between;
+
+            color: #ffffff;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        .ehed-event-hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+
+            height: 250px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            top: -70px;
+
+            right: -50px;
+
+        }
+
+
+        .ehed-event-hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            bottom: -60px;
+
+            left: -40px;
+
+        }
+
+
+        .ehed-hero-top {
+
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+        }
+
+
+        .ehed-category {
+
+            background:
+                rgba(255,255,255,0.9);
+
+            color: #3949ab;
+
+            padding:
+                7px 12px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        .ehed-date-box {
+
+            background:
+                rgba(255,255,255,0.15);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.3);
+
+            padding:
+                10px 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            backdrop-filter: blur(5px);
+
+        }
+
+
+        .ehed-date-box strong {
+
+            display: block;
+
+            font-size: 22px;
+
+        }
+
+
+        .ehed-date-box span {
+
+            font-size: 11px;
+
+            opacity: 0.9;
+
+        }
+
+
+        .ehed-hero-bottom {
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+
+        .ehed-hero-bottom h1 {
+
+            font-size: 42px;
+
+            line-height: 1.15;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .ehed-hero-bottom p {
+
+            max-width: 600px;
+
+            opacity: 0.9;
+
+        }
+
+
+        /* =====================================================
+           EVENT INFORMATION CARD
+           ===================================================== */
+
+        .ehed-info-card {
+
+            background: #ffffff;
+
+            border:
+                1px solid #e4e6eb;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.04);
+
+        }
+
+
+        .ehed-info-card h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .ehed-info-row {
+
+            display: flex;
+
+            gap: 14px;
+
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+        }
+
+
+        .ehed-info-row:last-of-type {
+
+            border-bottom: none;
+
+        }
+
+
+        .ehed-info-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 9px;
+
+            background: #f0efff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .ehed-info-text small {
+
+            display: block;
+
+            color: #888;
+
+            font-size: 11px;
+
+            margin-bottom: 2px;
+
+        }
+
+
+        .ehed-info-text strong {
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
+
+        .ehed-register-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background: #635bff;
+
+            color: #ffffff;
+
+            padding: 14px;
+
+            border-radius: 9px;
+
+            margin-top: 20px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .ehed-register-btn:hover {
+
+            background: #5149e8;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        .ehed-description-section {
+
+            background: #ffffff;
+
+            border:
+                1px solid #e4e6eb;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            margin-top: 30px;
+
+        }
+
+
+        .ehed-description-section h2 {
+
+            font-size: 24px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .ehed-description-section p {
+
+            color: #667085;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* =====================================================
+           WHAT YOU WILL GET
+           ===================================================== */
+
+        .ehed-highlights {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .ehed-highlight {
+
+            padding: 18px;
+
+            background: #f8f9fc;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+
+        }
+
+
+        .ehed-highlight-icon {
+
+            font-size: 22px;
+
+        }
+
+
+        .ehed-highlight span {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =====================================================
+           MODAL
+           ===================================================== */
+
+        .ehed-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(15, 23, 42, 0.65);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 9999;
+
+        }
+
+
+        .ehed-modal.ehed-show {
+
+            display: flex;
+
+        }
+
+
+        .ehed-modal-box {
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background: #ffffff;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            position: relative;
+
+            animation:
+                ehedModalOpen
+                0.2s ease;
+
+        }
+
+
+        @keyframes ehedModalOpen {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .ehed-modal-close {
+
+            position: absolute;
+
+            right: 18px;
+
+            top: 15px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            color: #777;
+
+        }
+
+
+        .ehed-modal-box h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .ehed-modal-box p {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .ehed-form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .ehed-form-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .ehed-form-group input {
+
+            width: 100%;
+
+            height: 45px;
+
+            border:
+                1px solid #dcdfe5;
+
+            border-radius: 8px;
+
+            padding: 0 12px;
+
+            outline: none;
+
+        }
+
+
+        .ehed-form-group input:focus {
+
+            border-color: #635bff;
+
+        }
+
+
+        .ehed-confirm-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background: #635bff;
+
+            color: #ffffff;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .ehed-success {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 15px 0;
+
+        }
+
+
+        .ehed-success-icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            margin:
+                0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #e8f7ee;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+        }
+
+
+        .ehed-success p {
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .ehed-footer {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding:
+                45px 0 20px;
+
+        }
+
+
+        .ehed-footer-top {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            gap: 30px;
+
+            padding-bottom: 35px;
+
+        }
+
+
+        .ehed-footer-logo {
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+        }
+
+
+        .ehed-footer-logo span {
+
+            color: #8b85ff;
+
+        }
+
+
+        .ehed-footer p {
+
+            color: #9ca3af;
+
+            margin-top: 7px;
+
+            font-size: 14px;
+
+        }
+
+
+        .ehed-footer-links {
+
+            display: flex;
+
+            gap: 22px;
+
+        }
+
+
+        .ehed-footer-links a {
+
+            color: #d1d5db;
+
+            font-size: 14px;
+
+        }
+
+
+        .ehed-footer-links a:hover {
+
+            color: #ffffff;
+
+        }
+
+
+        .ehed-copyright {
+
+            border-top:
+                1px solid #293244;
+
+            padding-top: 18px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .ehed-event-layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .ehed-event-hero {
+
+                min-height: 350px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .ehed-nav-links a:not(.ehed-start-btn) {
+
+                display: none;
+
+            }
+
+
+            .ehed-event-hero {
+
+                padding: 22px;
+
+            }
+
+
+            .ehed-hero-bottom h1 {
+
+                font-size: 32px;
+
+            }
+
+
+            .ehed-highlights {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .ehed-footer-top {
+
+                flex-direction: column;
+
+            }
+
+
+            .ehed-footer-links {
+
+                flex-wrap: wrap;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="ehed-navbar">
+
+        <div
+            class="ehed-container ehed-nav-inner"
+        >
+
+            <a
+                href="index.html"
+                class="ehed-logo"
+            >
+                Event<span>Hub</span>
+            </a>
+
+
+            <nav class="ehed-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a
+                    href="events.html"
+                    class="ehed-active"
+                >
+                    Events
+                </a>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <a
+                    href="register.html"
+                    class="ehed-start-btn"
+                >
+                    Get Started
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         BREADCRUMB
+         ===================================================== -->
+
+    <div class="ehed-breadcrumb-area">
+
+        <div class="ehed-container">
+
+            <div class="ehed-breadcrumb">
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <span>
+                    /
+                </span>
+
+                <span>
+                    Event Details
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="ehed-main">
+
+        <div class="ehed-container">
+
+
+            <div class="ehed-event-layout">
+
+
+                <!-- =================================================
+                     LEFT SIDE
+                     ================================================= -->
+
+                <div>
+
+
+                    <!-- EVENT HERO -->
+
+                    <section class="ehed-event-hero">
+
+
+                        <div class="ehed-hero-top">
+
+                            <span class="ehed-category">
+                                TECHNOLOGY
+                            </span>
+
+
+                            <div class="ehed-date-box">
+
+                                <strong>
+                                    OCT 05
+                                </strong>
+
+                                <span>
+                                    2026
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ehed-hero-bottom">
+
+                            <h1>
+                                Future of Technology
+                            </h1>
+
+                            <p>
+                                Explore AI, Cloud Computing,
+                                DevOps and the technologies
+                                shaping the future.
+                            </p>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <section
+                        class="ehed-description-section"
+                    >
+
+                        <h2>
+                            About This Event
+                        </h2>
+
+
+                        <p>
+                            Join technology enthusiasts,
+                            students, developers and industry
+                            professionals for an exciting
+                            discussion about the future of
+                            technology.
+                        </p>
+
+
+                        <p>
+                            Learn about Artificial Intelligence,
+                            Cloud Computing, DevOps and other
+                            emerging technologies through
+                            practical sessions and expert
+                            discussions.
+                        </p>
+
+
+                        <h2
+                            style="margin-top: 30px;"
+                        >
+                            What You Will Get
+                        </h2>
+
+
+                        <div class="ehed-highlights">
+
+
+                            <div class="ehed-highlight">
+
+                                <div
+                                    class="ehed-highlight-icon"
+                                >
+                                    💻
+                                </div>
+
+                                <span>
+                                    Practical Technology Sessions
+                                </span>
+
+                            </div>
+
+
+                            <div class="ehed-highlight">
+
+                                <div
+                                    class="ehed-highlight-icon"
+                                >
+                                    ☁️
+                                </div>
+
+                                <span>
+                                    Cloud & DevOps Insights
+                                </span>
+
+                            </div>
+
+
+                            <div class="ehed-highlight">
+
+                                <div
+                                    class="ehed-highlight-icon"
+                                >
+                                    🤝
+                                </div>
+
+                                <span>
+                                    Networking Opportunities
+                                </span>
+
+                            </div>
+
+
+                            <div class="ehed-highlight">
+
+                                <div
+                                    class="ehed-highlight-icon"
+                                >
+                                    🎓
+                                </div>
+
+                                <span>
+                                    Certificate of Participation
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT SIDE
+                     ================================================= -->
+
+                <aside class="ehed-info-card">
+
+
+                    <h2>
+                        Event Information
+                    </h2>
+
+
+                    <!-- DATE -->
+
+                    <div class="ehed-info-row">
+
+                        <div class="ehed-info-icon">
+                            📅
+                        </div>
+
+                        <div class="ehed-info-text">
+
+                            <small>
+                                DATE
+                            </small>
+
+                            <strong>
+                                05 October 2026
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TIME -->
+
+                    <div class="ehed-info-row">
+
+                        <div class="ehed-info-icon">
+                            🕐
+                        </div>
+
+                        <div class="ehed-info-text">
+
+                            <small>
+                                TIME
+                            </small>
+
+                            <strong>
+                                10:00 AM – 4:00 PM
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="ehed-info-row">
+
+                        <div class="ehed-info-icon">
+                            📍
+                        </div>
+
+                        <div class="ehed-info-text">
+
+                            <small>
+                                LOCATION
+                            </small>
+
+                            <strong>
+                                Bhubaneswar, Odisha
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SEATS -->
+
+                    <div class="ehed-info-row">
+
+                        <div class="ehed-info-icon">
+                            👥
+                        </div>
+
+                        <div class="ehed-info-text">
+
+                            <small>
+                                AVAILABLE SEATS
+                            </small>
+
+                            <strong>
+                                100 seats
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+
+                    <div class="ehed-info-row">
+
+                        <div class="ehed-info-icon">
+                            💳
+                        </div>
+
+                        <div class="ehed-info-text">
+
+                            <small>
+                                ENTRY
+                            </small>
+
+                            <strong>
+                                Free Registration
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REGISTER -->
+
+                    <button
+                        type="button"
+                        id="ehedRegisterButton"
+                        class="ehed-register-btn"
+                    >
+                        Register Now →
+                    </button>
+
+
+                </aside>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         REGISTRATION MODAL
+         ===================================================== -->
+
+    <div
+        id="ehedModal"
+        class="ehed-modal"
+    >
+
+        <div class="ehed-modal-box">
+
+
+            <button
+                type="button"
+                id="ehedCloseModal"
+                class="ehed-modal-close"
+            >
+                ×
+            </button>
+
+
+            <!-- FORM -->
+
+            <div id="ehedRegistrationForm">
+
+                <h2>
+                    Register for Event
+                </h2>
+
+                <p>
+                    Enter your details to reserve
+                    your seat.
+                </p>
+
+
+                <div class="ehed-form-group">
+
+                    <label for="ehedName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ehedName"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+                <div class="ehed-form-group">
+
+                    <label for="ehedEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="ehedEmail"
+                        placeholder="Enter your email"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="ehedConfirmButton"
+                    class="ehed-confirm-btn"
+                >
+                    Confirm Registration
+                </button>
+
+            </div>
+
+
+
+            <!-- SUCCESS -->
+
+            <div
+                id="ehedSuccess"
+                class="ehed-success"
+            >
+
+                <div
+                    class="ehed-success-icon"
+                >
+                    ✓
+                </div>
+
+                <h2>
+                    Registration Successful!
+                </h2>
+
+                <p>
+                    Your seat has been reserved.
+                    We look forward to seeing you
+                    at the event.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="ehed-footer">
+
+        <div class="ehed-container">
+
+
+            <div class="ehed-footer-top">
+
+
+                <div>
+
+                    <div class="ehed-footer-logo">
+
+                        Event<span>Hub</span>
+
+                    </div>
+
+                    <p>
+                        Discover. Register. Experience.
+                    </p>
+
+                </div>
+
+
+                <div class="ehed-footer-links">
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="events.html">
+                        Events
+                    </a>
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                    <a href="register.html">
+                        Register
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="ehed-copyright">
+
+                © 2026 EventHub.
+                All rights reserved.
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /*
+        ========================================================
+        EVENTHUB EVENT DETAILS JAVASCRIPT
+
+        This JavaScript belongs ONLY to event-details.html.
+
+        No external JS file is required.
+        ========================================================
+        */
+
+
+        /* ---------- ELEMENTS ---------- */
+
+        const ehedRegisterButton =
+            document.getElementById(
+                "ehedRegisterButton"
+            );
+
+
+        const ehedModal =
+            document.getElementById(
+                "ehedModal"
+            );
+
+
+        const ehedCloseModal =
+            document.getElementById(
+                "ehedCloseModal"
+            );
+
+
+        const ehedConfirmButton =
+            document.getElementById(
+                "ehedConfirmButton"
+            );
+
+
+        const ehedName =
+            document.getElementById(
+                "ehedName"
+            );
+
+
+        const ehedEmail =
+            document.getElementById(
+                "ehedEmail"
+            );
+
+
+        const ehedRegistrationForm =
+            document.getElementById(
+                "ehedRegistrationForm"
+            );
+
+
+        const ehedSuccess =
+            document.getElementById(
+                "ehedSuccess"
+            );
+
+
+
+        /* =====================================================
+           OPEN MODAL
+           ===================================================== */
+
+        ehedRegisterButton.addEventListener(
+            "click",
+            function () {
+
+                ehedModal.classList.add(
+                    "ehed-show"
+                );
+
+                ehedName.focus();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CLOSE MODAL
+           ===================================================== */
+
+        ehedCloseModal.addEventListener(
+            "click",
+            function () {
+
+                ehedModal.classList.remove(
+                    "ehed-show"
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CLOSE WHEN CLICKING OUTSIDE
+           ===================================================== */
+
+        ehedModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === ehedModal
+                ) {
+
+                    ehedModal.classList.remove(
+                        "ehed-show"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CONFIRM REGISTRATION
+           ===================================================== */
+
+        ehedConfirmButton.addEventListener(
+            "click",
+            function () {
+
+
+                const name =
+                    ehedName.value.trim();
+
+
+                const email =
+                    ehedEmail.value.trim();
+
+
+
+                /* ---------- NAME VALIDATION ---------- */
+
+                if (name === "") {
+
+                    alert(
+                        "Please enter your name."
+                    );
+
+                    ehedName.focus();
+
+                    return;
+
+                }
+
+
+
+                /* ---------- EMAIL VALIDATION ---------- */
+
+                if (email === "") {
+
+                    alert(
+                        "Please enter your email."
+                    );
+
+                    ehedEmail.focus();
+
+                    return;
+
+                }
+
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (
+                    !emailPattern.test(email)
+                ) {
+
+                    alert(
+                        "Please enter a valid email address."
+                    );
+
+                    ehedEmail.focus();
+
+                    return;
+
+                }
+
+
+
+                /* ---------- SHOW SUCCESS ---------- */
+
+                ehedRegistrationForm.style.display =
+                    "none";
+
+
+                ehedSuccess.style.display =
+                    "block";
+
+
+            }
+        );
+
+
+
+        /* =====================================================
+           ESC KEY CLOSE
+           ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    ehedModal.classList.remove(
+                        "ehed-show"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
