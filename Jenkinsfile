@@ -5,7 +5,7 @@ pipeline{
         stage('Checkout'){
             steps{
                 echo "checking out the source code........."
-                checkout sum
+                checkout scm
             }
         }
 
@@ -19,7 +19,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo "Building docker image...."
-                bat 'sudo docker build -t cicd-image:latest .'
+                bat 'docker build -t cicd-image:latest .'
             }
         }
     }
